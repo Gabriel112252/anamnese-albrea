@@ -1,0 +1,34 @@
+<h2 class="text-xl font-semibold mb-6 flex items-center justify-between">
+  <span>Usuários</span>
+
+  <%= link_to "Novo Usuário", new_user_path,
+    class: "text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition" %>
+</h2>
+
+<% if notice %>
+  <div class="mb-6 text-sm text-green-700 bg-green-50 p-3 rounded-lg">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if @users.empty? %>
+  <div class="text-gray-600">Nenhum usuário cadastrado.</div>
+<% else %>
+  <div class="space-y-3">
+    <% @users.each do |user| %>
+      <div class="border rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition">
+        <div>
+          <div class="font-medium"><%= user.email %></div>
+          <div class="text-sm text-gray-600">
+            Criado em <%= user.created_at.strftime("%d/%m/%Y") %>
+          </div>
+        </div>
+
+        <%= link_to "Editar / Redefinir Senha",
+          edit_user_path(user),
+          data: { turbo_frame: "modal" },
+          class: "text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

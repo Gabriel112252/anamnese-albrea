@@ -1,0 +1,43 @@
+<turbo-frame id="modal">
+  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white w-full max-w-md rounded-2xl p-8 relative">
+
+      <h2 class="text-xl font-semibold mb-6">
+        Editar Usuário
+      </h2>
+
+      <%= form_with model: @user do |f| %>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <%= f.email_field :email,
+            class: "w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" %>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Nova Senha</label>
+          <%= f.password_field :password,
+            class: "w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" %>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-1">Confirmar Nova Senha</label>
+          <%= f.password_field :password_confirmation,
+            class: "w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" %>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <%= link_to "Cancelar",
+            users_path,
+            data: { turbo_frame: "_top" },
+            class: "text-sm text-gray-600 hover:text-black transition" %>
+
+          <%= f.submit "Salvar Alterações",
+            class: "text-sm bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</turbo-frame>

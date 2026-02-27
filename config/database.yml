@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: 127.0.0.1
+  port: 5432
+  username: albrea
+  password: albrea123
+
+development:
+  <<: *default
+  database: anamnese_albrea_development
+
+test:
+  <<: *default
+  database: anamnese_albrea_test

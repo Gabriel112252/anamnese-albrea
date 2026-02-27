@@ -1,0 +1,24 @@
+<h2 class="text-xl font-semibold mb-6 flex items-center justify-between">
+  <span>Pacientes</span>
+
+  <%= link_to "Novo Paciente", new_patient_path,
+    class: "text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition" %>
+</h2>
+
+<% if @patients.empty? %>
+  <div class="text-gray-600">Nenhum paciente cadastrado ainda.</div>
+<% else %>
+  <div class="space-y-3">
+    <% @patients.each do |patient| %>
+      <div class="border rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition">
+        <div>
+          <div class="font-medium"><%= patient.name %></div>
+          <div class="text-sm text-gray-600">CPF: <%= patient.cpf %></div>
+        </div>
+
+        <%= link_to "Detalhes", patient_path(patient),
+          class: "text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,88 @@
+<h2 class="text-xl font-semibold mb-6">
+  Detalhes do Paciente
+</h2>
+
+<div class="mb-6">
+  <%= link_to "Voltar", patients_path,
+    class: "text-sm text-gray-600 hover:text-black transition" %>
+</div>
+
+<!-- CARD PRINCIPAL -->
+<div class="space-y-8">
+
+  <!-- IDENTIFICAÇÃO -->
+  <div class="bg-gray-50 rounded-xl p-6">
+    <h3 class="font-semibold mb-4 border-b pb-2">Informações do Paciente</h3>
+
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <p><strong>Nome:</strong> <%= @patient.name %></p>
+      <p><strong>CPF:</strong> <%= @patient.cpf %></p>
+      <p><strong>Telefone:</strong> <%= @patient.phone %></p>
+      <p><strong>Data de envio:</strong> <%= @patient.submitted_at&.strftime("%d/%m/%Y %H:%M") %></p>
+    </div>
+  </div>
+
+  <!-- RESPOSTAS -->
+  <% if @patient.answers.present? %>
+
+    <div class="bg-white border rounded-xl p-6 space-y-6">
+
+      <h3 class="font-semibold border-b pb-2">
+        Respostas da Anamnese
+      </h3>
+
+      <% answers = @patient.answers %>
+
+      <!-- HISTÓRICO -->
+      <div class="space-y-3">
+        <h4 class="font-medium text-gray-700">Histórico de Saúde</h4>
+
+        <p><strong>Medicação contínua:</strong> <%= answers["medication_continuous"] %></p>
+        <p><strong>Medicamentos:</strong> <%= answers["medications"] %></p>
+
+        <p><strong>Alergia:</strong> <%= answers["allergy"] %></p>
+        <p><strong>Detalhes alergia:</strong> <%= answers["allergy_details"] %></p>
+
+        <p><strong>Doença de pele:</strong> <%= answers["skin_disease"] %></p>
+        <p><strong>Qual doença:</strong> <%= answers["skin_disease_details"] %></p>
+
+        <p><strong>Gestante/Lactante:</strong> <%= answers["pregnant_or_lactating"] %></p>
+
+        <p><strong>Procedimento recente:</strong> <%= answers["recent_procedure"] %></p>
+        <p><strong>Detalhes procedimento:</strong> <%= answers["recent_procedure_details"] %></p>
+      </div>
+
+      <!-- HÁBITOS -->
+      <div class="space-y-3">
+        <h4 class="font-medium text-gray-700">Hábitos</h4>
+
+        <p><strong>Higieniza diariamente:</strong> <%= answers["daily_cleansing"] %></p>
+        <p><strong>Usa protetor:</strong> <%= answers["sunscreen_use"] %></p>
+        <p><strong>Frequência protetor:</strong> <%= answers["sunscreen_frequency"] %></p>
+        <p><strong>Produtos usados:</strong> <%= answers["products_used_daily"] %></p>
+        <p><strong>Exposição sem proteção:</strong> <%= answers["sun_exposure_no_protection"] %></p>
+      </div>
+
+      <!-- AVALIAÇÃO -->
+      <div class="space-y-3">
+        <h4 class="font-medium text-gray-700">Avaliação da Pele</h4>
+
+        <p><strong>Tipo de pele:</strong> <%= answers["skin_type"] %></p>
+
+        <p>
+          <strong>Queixas principais:</strong>
+          <%= answers["main_complaints"]&.join(", ") %>
+        </p>
+
+        <p><strong>Sensibilidade:</strong> <%= answers["sensitivity"] %></p>
+      </div>
+
+    </div>
+
+  <% else %>
+    <div class="text-gray-600">
+      Nenhuma resposta registrada.
+    </div>
+  <% end %>
+
+</div>

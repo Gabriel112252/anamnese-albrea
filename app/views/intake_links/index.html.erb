@@ -1,0 +1,39 @@
+<h2 class="text-xl font-semibold mb-6 flex items-center justify-between">
+  <span>Links de Anamnese</span>
+
+  <%= form_with url: intake_links_path, method: :post do %>
+    <%= submit_tag "Gerar Novo Link",
+      class: "text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition" %>
+  <% end %>
+</h2>
+
+<% if notice %>
+  <div class="mb-6 text-sm text-green-700 bg-green-50 p-3 rounded-lg">
+    Link gerado:
+    <div class="font-medium break-all mt-1"><%= notice %></div>
+  </div>
+<% end %>
+
+<% if @links.empty? %>
+  <div class="text-gray-600">Nenhum link gerado ainda.</div>
+<% else %>
+  <div class="space-y-3">
+    <% @links.each do |link| %>
+      <div class="border rounded-xl p-4 flex items-center justify-between">
+        <div class="text-sm break-all">
+          <div class="font-medium">
+            <%= public_form_url(link.token) %>
+          </div>
+          <div class="text-gray-600 mt-1">
+            Status:
+            <% if link.used_at.present? %>
+              <span class="text-red-600">Usado</span>
+            <% else %>
+              <span class="text-green-600">Disponível</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

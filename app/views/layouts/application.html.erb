@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Anamnese Albrea</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+
+    <% if current_user %>
+      <div class="flex min-h-screen">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 px-6 pt-4 pb-8 flex flex-col">
+
+          <div class="mb-6 flex justify-center">
+            <%= image_tag "logo-albrea.png", class: "h-16 object-contain" %>
+          </div>
+
+          <nav class="flex flex-col space-y-3 text-sm">
+
+            <%= link_to "Pacientes", patients_path,
+              class: "px-3 py-2 rounded-lg transition #{controller_name == 'patients' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100'}" %>
+
+            <%= link_to "Gerar Link Anamnese", intake_links_path,
+              class: "px-3 py-2 rounded-lg transition #{current_page?(intake_links_path) ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100'}" %>
+
+            <%= link_to "Usuários", users_path,
+              class: "px-3 py-2 rounded-lg transition #{current_page?(users_path) ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100'}" %>
+
+          </nav>
+
+          <div class="mt-auto pt-10">
+            <%= button_to "Logout", logout_path,
+              method: :delete,
+              form: { class: "inline" },
+              class: "text-sm text-gray-500 hover:text-black transition bg-transparent border-0 p-0" %>
+          </div>
+
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 p-12">
+          <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm p-10">
+            <%= yield %>
+          </div>
+        </main>
+
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+    <turbo-frame id="modal"></turbo-frame>
+  </body>
+</html>

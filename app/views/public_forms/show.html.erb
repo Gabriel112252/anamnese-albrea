@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ficha de Anamnese - Albrea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex items-start justify-center px-4 py-8">
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6 space-y-8">
+
+    <!-- BOAS VINDAS -->
+    <div class="text-center space-y-2">
+      <h1 class="text-xl font-semibold">Bem-vindo(a) 💛</h1>
+      <p class="text-sm text-gray-500">
+        É um prazer cuidar de você. Responda rapidamente as perguntas abaixo.
+      </p>
+    </div>
+
+    <%= form_with url: public_form_path(@link.token), method: :post, class: "space-y-8" do %>
+
+      <!-- HISTÓRICO -->
+      <div class="space-y-6">
+
+        <h2 class="text-base font-semibold border-b pb-2">Histórico de Saúde</h2>
+
+        <div>
+          <label class="block font-medium mb-2">Faz uso de medicação contínua?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[medication_continuous]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[medication_continuous]", "Não" %> Não</label>
+          </div>
+          <%= text_field_tag "answers[medications]", nil, placeholder: "Quais medicamentos?",
+            class: "mt-3 w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Possui alergia?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[allergy]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[allergy]", "Não" %> Não</label>
+          </div>
+          <%= text_field_tag "answers[allergy_details]", nil, placeholder: "Qual alergia?",
+            class: "mt-3 w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Possui alguma doença de pele?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[skin_disease]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[skin_disease]", "Não" %> Não</label>
+          </div>
+          <%= text_field_tag "answers[skin_disease_details]", nil, placeholder: "Qual doença?",
+            class: "mt-3 w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Gestante ou lactante?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[pregnant_or_lactating]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[pregnant_or_lactating]", "Não" %> Não</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Realizou procedimento estético recente?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[recent_procedure]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[recent_procedure]", "Não" %> Não</label>
+          </div>
+          <%= text_field_tag "answers[recent_procedure_details]", nil, placeholder: "Qual procedimento / Quando?",
+            class: "mt-3 w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+      </div>
+
+      <!-- HÁBITOS -->
+      <div class="space-y-6">
+        <h2 class="text-base font-semibold border-b pb-2">Hábitos</h2>
+
+        <div>
+          <label class="block font-medium mb-2">Higieniza a pele diariamente?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[daily_cleansing]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[daily_cleansing]", "Não" %> Não</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Usa protetor solar?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[sunscreen_use]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[sunscreen_use]", "Não" %> Não</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Frequência do protetor solar</label>
+          <%= select_tag "answers[sunscreen_frequency]",
+            options_for_select(["Diariamente","Às vezes","Somente quando exposto"]),
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Produtos usados no rosto</label>
+          <%= text_field_tag "answers[products_used_daily]", nil,
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Exposição solar sem proteção?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[sun_exposure_no_protection]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[sun_exposure_no_protection]", "Não" %> Não</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVALIAÇÃO -->
+      <div class="space-y-6">
+        <h2 class="text-base font-semibold border-b pb-2">Avaliação da Pele</h2>
+
+        <div>
+          <label class="block font-medium mb-2">Tipo de pele</label>
+          <%= select_tag "answers[skin_type]",
+            options_for_select(["Normal","Seca","Oleosa","Mista","Sensível"]),
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-3">Queixa principal</label>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <label><%= check_box_tag "answers[main_complaints][]", "Acne" %> Acne</label>
+            <label><%= check_box_tag "answers[main_complaints][]", "Cravos" %> Cravos</label>
+            <label><%= check_box_tag "answers[main_complaints][]", "Manchas" %> Manchas</label>
+            <label><%= check_box_tag "answers[main_complaints][]", "Oleosidade excessiva" %> Oleosidade excessiva</label>
+            <label><%= check_box_tag "answers[main_complaints][]", "Ressecamento" %> Ressecamento</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Sensibilidade a cosméticos?</label>
+          <div class="flex gap-6">
+            <label><%= radio_button_tag "answers[sensitivity]", "Sim" %> Sim</label>
+            <label><%= radio_button_tag "answers[sensitivity]", "Não" %> Não</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- DADOS FINAIS -->
+      <div class="space-y-4 pt-4 border-t">
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Seu Nome</label>
+          <%= text_field_tag :name, nil,
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">CPF</label>
+          <%= text_field_tag :cpf, nil,
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Telefone</label>
+          <%= text_field_tag :phone, nil,
+            class: "w-full border rounded-xl px-4 py-2" %>
+        </div>
+
+      </div>
+
+      <div class="pt-4">
+        <%= submit_tag "Enviar Informações",
+          class: "w-full bg-black text-white py-3 rounded-xl text-sm font-medium hover:bg-gray-800 transition" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+
+</body>
+</html>
